@@ -66,7 +66,7 @@ export default {
 							uni.navigateTo({ url: `/sub_pages/pages/identity_code/identity_code?userNo=${this.userNo}` })
 						} else {
 							uni.showModal({
-								title: '请先实名',
+								title: '请先注册申请',
 								content: '',
 								showCancel: true,
 								success: ({ confirm, cancel }) => {}
