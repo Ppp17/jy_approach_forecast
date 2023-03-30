@@ -161,7 +161,7 @@
 						<uni-easyinput v-model="stockName" placeholder="货主姓名" />
 					</view>
 				</uni-forms-item>
-
+				
 				<!-- 批号 -->
 				<uni-forms-item v-if="stockType == '进口冷链'" label="批号" name="lotNum" :labelWidth="75">
 					<view class="plateNum">

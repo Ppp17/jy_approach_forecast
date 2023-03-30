@@ -3,11 +3,11 @@
 	<view class="option">
 		<view class="btn btn_1" hover-class="btn_press_1" @click="optionBtn(1)">
 			<image src="/static/appo.png" mode="scaleToFill" class="img" />
-			<text>进货预约</text>
+			<text>进货预报</text>
 		</view>
 		<view class="btn btn_2" hover-class="btn_press_2" @click="optionBtn(2)">
 			<image src="/static/real_name.png" mode="scaleToFill" class="img" style="width: 36px;height: 36px;" />
-			<text>实名认证</text>
+			<text>注册申请</text>
 		</view>
 		<view class="btn btn_3" hover-class="btn_press_3" @click="optionBtn(3)">
 			<image src="/static/Lease.png" mode="scaleToFill" class="img" />
