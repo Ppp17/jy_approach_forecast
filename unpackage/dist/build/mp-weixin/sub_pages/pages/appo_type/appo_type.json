@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "进货预报",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-section": "/uni_modules/uni-section/components/uni-section/uni-section",
+    "show-sth": "/components/showSth/showSth"
+  }
+}

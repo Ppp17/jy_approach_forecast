@@ -1,0 +1,1 @@
+<view class="container data-v-58873300"><user_info vue-id="8dd740cc-1" name="{{userInfo.userName}}" phone="{{userInfo.phone}}" class="data-v-58873300" bind:__l="__l"></user_info><view class="btn_out data-v-58873300"><f-option vue-id="8dd740cc-2" userNo="{{userInfo.userNo}}" credNo="{{userInfo.credNo}}" class="data-v-58873300" bind:__l="__l"></f-option></view></view>

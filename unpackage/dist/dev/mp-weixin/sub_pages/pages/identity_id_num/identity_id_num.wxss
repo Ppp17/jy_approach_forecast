@@ -1,0 +1,8 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.plateNum.data-v-a1ad43f8 {
+  flex: 7;
+  margin: 5px;
+}
+

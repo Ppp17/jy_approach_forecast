@@ -1,0 +1,27 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [
+    {
+      "root": "sub_pages",
+      "pages": [
+        "pages/pkg_index/pkg_index",
+        "pages/appo/appo",
+        "pages/identity/identity",
+        "pages/lease/lease",
+        "pages/identity_id_num/identity_id_num",
+        "pages/identity_id_photo/identity_id_photo",
+        "pages/appo_type/appo_type",
+        "pages/identity_code/identity_code"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

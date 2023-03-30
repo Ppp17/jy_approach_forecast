@@ -1,0 +1,63 @@
+{
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "projectname": "jy_approach_forecast",
+  "setting": {
+    "compileHotReLoad": true
+  },
+  "libVersion": "2.30.3",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/appo/appo",
+          "query": "type=3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/identity/identity",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/identity_id_num/identity_id_num",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/identity_id_photo/identity_id_photo",
+          "query": "userNo=PS00000002",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/appo_type/appo_type",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/appo/appo",
+          "query": "type=3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/identity_code/identity_code",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

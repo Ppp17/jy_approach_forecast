@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.info.data-v-791823ec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.info .pic.data-v-791823ec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+.info .pic .head_pic.data-v-791823ec {
+  background-color: blue;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.info .pic .name.data-v-791823ec {
+  margin-left: 1vw;
+}
+.info .phone.data-v-791823ec {
+  font-size: 24px;
+}
+

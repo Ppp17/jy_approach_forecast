@@ -1,0 +1,12 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.appoData.data-v-297207da {
+  height: 50vh;
+  /* 		display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+	background-color: pink; */
+}
+

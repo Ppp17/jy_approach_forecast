@@ -1,0 +1,1 @@
+<view class="data-v-a574254a"><view class="title data-v-a574254a">我的身份码</view><view class="time data-v-a574254a">{{time_now}}</view><view class="canvas-code data-v-a574254a"><view class="canvas-inside data-v-a574254a"><canvas style="{{('width:'+QRwidth+'px;height:'+QRwidth+'px')}}" canvas-id="qrcode" class="data-v-a574254a"></canvas></view></view></view>

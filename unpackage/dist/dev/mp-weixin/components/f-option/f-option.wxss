@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/* 水平间距 */
+/* 水平间距 */
+.option.data-v-247504f8 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vh;
+  justify-content: center;
+  align-items: center;
+  height: 22vh;
+}
+.option .btn.data-v-247504f8 {
+  height: 10vh;
+  width: 45%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #41b6ec;
+  color: white;
+  border-radius: 10px;
+}
+.option .btn .img.data-v-247504f8 {
+  width: 40px;
+  height: 40px;
+}
+.option .btn text.data-v-247504f8 {
+  font-size: 3vh;
+  font-family: "Microsoft YaHei";
+  font-weight: 600;
+}
+.option .btn_1.data-v-247504f8 {
+  background-color: #79c667;
+}
+.option .btn_press_1.data-v-247504f8 {
+  background-color: #90bd86;
+}
+.option .btn_2.data-v-247504f8 {
+  background-color: #76cce8;
+}
+.option .btn_press_2.data-v-247504f8 {
+  background-color: #9cc9d8;
+}
+.option .btn_3.data-v-247504f8 {
+  background-color: #f4d100;
+}
+.option .btn_press_3.data-v-247504f8 {
+  background-color: #e6d67e;
+}
+.option .btn_4.data-v-247504f8 {
+  background-color: #4ca9e7;
+}
+.option .btn_press_4.data-v-247504f8 {
+  background-color: #77a3c0;
+}
+
