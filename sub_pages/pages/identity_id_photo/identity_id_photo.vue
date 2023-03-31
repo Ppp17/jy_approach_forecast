@@ -17,6 +17,12 @@
 		<view class="input">
 			<uni-easyinput v-model="idInfo.idName" placeholder="姓名" disabled />
 		</view>
+		<!-- 用户隐私协议 -->
+		<view class="input" style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+			<uni-data-checkbox multiple v-model="userAgreement" :localdata="agreement"
+				@change="changeAgreement"></uni-data-checkbox>
+			<view @click="showPrivary" style="color:#e749b8">查看协议内容</view>
+		</view>
 		<button v-if="firstUpLoad" @click="onSubmit" style="width: 80vw;margin-top:2vh">提交</button>
 		<button v-else @click="onSubmit" style="width: 80vw;margin-top:2vh">修改</button>
 	</view>
@@ -27,6 +33,15 @@ import { upLoadPic, saveRealName } from 'api/index.js';
 export default {
 	data() {
 		return {
+			// 用户隐私协议
+			userAgreement: [0],
+			// 协议
+			agreement: [{
+				text: '我已同意并接受《用户服务协议》及《隐私政策》',
+				value: 0
+			}],
+			// 协议数组长度
+			arrlength: 1,
 			// 是否第一次上传
 			firstUpLoad: true,
 			// 人面
@@ -53,6 +68,39 @@ export default {
 		console.log(options);
 	},
 	methods: {
+		changeAgreement(e) {
+			console.log(e);
+			console.log(e.detail.data.length);
+			this.arrlength = e.detail.data.length
+		},
+		showPrivary() {
+			uni.showLoading({
+				title: '加载中',
+				mask: true
+			})
+			uni.downloadFile({
+				url: 'https://pass.jysc.sh.cn/AppFiles/005newPrivacy.pdf',
+				success: ({ tempFilePath, statusCode }) => {
+					// console.log(tempFilePath);
+					uni.openDocument({
+						filePath: tempFilePath,
+						success: (result) => {
+							uni.hideLoading();
+						},
+						fail: (error) => {
+							uni.hideLoading();
+						}
+					})
+				},
+				fail: (error) => {
+					uni.hideLoading();
+					uni.showModal({
+						title: 'fail',
+						content: error,
+					})
+				}
+			})
+		},
 		async upLoadImg(type) {
 			if (type == 2 && this.idInfo.idNumber == '') {
 				uni.showModal({
@@ -136,33 +184,41 @@ export default {
 		},
 		async onSubmit() {
 			console.log(this.idInfo);
-			if (this.idInfo.faceFlag && this.idInfo.backFlag) {
-				const { data: res } = await saveRealName(this.idInfo.userNo, this.idInfo.idNumber, this.idInfo.idName,this.idInfo.addr)
-				console.log(res);
-				if (res.Code == 0) {
-					uni.showModal({
-						title: '成功',
-						content: res.Message,
-						showCancel: true,
-						success: ({ confirm, cancel }) => { }
-					})
+			if (this.arrlength == 1) {
+				if (this.idInfo.faceFlag && this.idInfo.backFlag) {
+					const { data: res } = await saveRealName(this.idInfo.userNo, this.idInfo.idNumber, this.idInfo.idName, this.idInfo.addr)
+					console.log(res);
+					if (res.Code == 0) {
+						uni.showModal({
+							title: '成功',
+							content: res.Message,
+							showCancel: true,
+							success: ({ confirm, cancel }) => { }
+						})
+					} else {
+						uni.showModal({
+							title: 'Fail',
+							content: res.Message,
+							showCancel: true,
+							success: ({ confirm, cancel }) => { }
+						})
+					}
+
 				} else {
 					uni.showModal({
-						title: 'Fail',
-						content: res.Message,
+						title: '上传失败',
+						content: '请上传所有图片',
 						showCancel: true,
 						success: ({ confirm, cancel }) => { }
 					})
 				}
-
 			} else {
 				uni.showModal({
-					title: '上传失败',
-					content: '请上传所有图片',
-					showCancel: true,
-					success: ({ confirm, cancel }) => { }
+					title: 'fail',
+					content: '请先勾选用户协议',
 				})
 			}
+
 		}
 	}
 }
