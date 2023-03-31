@@ -28,6 +28,7 @@ export default {
 				phone: ""
 				userName: "钱宇轩"
 				userNo: "PS00000002"
+				ssh 上传，随便改点
 			*/
 			userInfo: {}
 		}
