@@ -1,6 +1,12 @@
 <template>
 	<view>
-		<uni-card :title="'预约编号:' + title" extra="删除" @click="delHandler()">
+		<uni-card :title="'预约编号:' + title">
+			<template v-slot:title>
+				<view class="title">
+					<view>预约编号:{{ title }}</view>
+					<view @click="delHandler()">删除</view>
+				</view>
+			</template>
 			<text>预约类型:{{ appoType }}\n</text>
 			<!-- <text>预约手机号:{{ phone }}\n</text> -->
 			<text>预约日期:{{ appoDay }}</text>
@@ -40,12 +46,19 @@ export default {
 		this.appoDay = this.date.split(' ')[0];
 	},
 	methods: {
-		delHandler(){
-			this.$emit('getPreNo',this.title)
+		delHandler() {
+			this.$emit('getPreNo', this.title)
 			// console.log(this.title);
 		}
 	}
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.title{
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #c8c7cc;
+	padding: 10px 0;
+}
+</style>

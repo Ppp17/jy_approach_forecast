@@ -6,8 +6,10 @@
 					<view @click="showAllAppo">查看全部</view>
 				</template>
 			</uni-section>
+
 			<view class="appoData">
-				<scroll-view scroll-y style="height: 50vh;">
+				<view v-if="appoData.length == 0" style="font-size: 20px;">暂无数据</view>
+				<scroll-view v-else scroll-y style="height: 50vh;">
 					<block v-for="(item) in appoData" :key="item.preNo">
 						<appo_data :title="item.preNo" :appoType="item.dept" :date="item.preTime" @getPreNo="deleteAppoData">
 						</appo_data>
@@ -95,10 +97,10 @@ export default {
 <style lang="scss" scoped>
 .appoData {
 	height: 50vh;
-	/* 		display: flex;
+		display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 300px;
+ /*	height: 300px;
 	background-color: pink; */
 }
 </style>

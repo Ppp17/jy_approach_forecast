@@ -161,7 +161,7 @@
 						<uni-easyinput v-model="stockName" placeholder="货主姓名" />
 					</view>
 				</uni-forms-item>
-				
+
 				<!-- 批号 -->
 				<uni-forms-item v-if="stockType == '进口冷链'" label="批号" name="lotNum" :labelWidth="75">
 					<view class="plateNum">
@@ -182,7 +182,7 @@
 				<!-- 随车人数 -->
 				<uni-forms-item label="随车人数" name="appoPeople" :labelWidth="75">
 					<view class="plateNum">
-						<uni-easyinput v-model="appoPeople" placeholder="请输入随车人数" type="number" maxlength="1"/>
+						<uni-easyinput v-model="appoPeople" placeholder="请输入随车人数" type="number" maxlength="1" />
 					</view>
 				</uni-forms-item>
 
@@ -376,6 +376,11 @@ export default {
 			}
 			this.secondDateChoosenIndex = 0;
 			this.thirdDateChoosenIndex = 0;
+			this.selectDate =
+				this.dateRangeChosen[0][this.firstDateChoosenIndex] + ' ' +
+				this.dateRangeChosen[1][this.secondDateChoosenIndex] + '-' +
+				this.dateRangeChosen[2][this.thirdDateChoosenIndex]
+				console.log('侦听器1' + this.selectDate);
 		},
 
 		// 第二个下标改变后，删除 第三个数组中 0 - 第二个下标的内容
@@ -401,7 +406,7 @@ export default {
 				this.dateRangeChosen[0][this.firstDateChoosenIndex] + ' ' +
 				this.dateRangeChosen[1][this.secondDateChoosenIndex] + '-' +
 				this.dateRangeChosen[2][this.thirdDateChoosenIndex]
-			console.log('侦听器' + this.selectDate);
+			console.log('侦听器2' + this.selectDate);
 		}
 	},
 	onLoad(options) {
@@ -592,7 +597,10 @@ export default {
 				// 货主姓名
 				this.stockName = LastestData.owner
 				// 预约进场时间 preTime
-				this.selectDate = LastestData.preTime
+				// 如果日期比今日靠后，则赋予。反之则默认
+				let now_date = this.selectDate;
+				this.selectDate = this.compareDate(now_date, LastestData.preTime)
+				console.log('最终选择' + this.selectDate);
 				// 随车人数 crewCount
 				this.appoPeople = LastestData.crewCount
 				// 批号
@@ -715,9 +723,9 @@ export default {
 				}
 				else {
 					let crewCount = 0
-					if(this.appoPeople){
+					if (this.appoPeople) {
 						crewCount = parseInt(this.appoPeople)
-					} 
+					}
 					const { data: res } = await upLoadAppoData(
 						this.openid,
 						this.stockType,
@@ -754,24 +762,6 @@ export default {
 			}
 
 		},
-
-		// 身份证正则 弃用
-		/* 		idChange(idVal) {
-					let _IDRe18 = /^([1-6][1-9]|50)\d{4}(18|19|20)\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
-					let _IDre15 = /^([1-6][1-9]|50)\d{4}\d{2}((0[1-9])|10|11|12)(([0-2][1-9])|10|20|30|31)\d{3}$/
-					// 校验身份证：
-					if (_IDRe18.test(idVal) || _IDre15.test(idVal)) {
-						console.log(' 验证通过 ')
-					} else {
-						console.log(' 验证未通过 ')
-						uni.showModal({
-							title: '身份证格式错误',
-							content: '',
-							showCancel: true,
-							success: ({ confirm, cancel }) => { }
-						})
-					}
-				}, */
 
 		// 新增车牌
 		addPlate() {
@@ -881,6 +871,7 @@ export default {
 		},
 		// 选择日期
 		dateChange(e) {
+			console.log(e);
 			if (e.detail.column == 0) {
 				this.firstDateChoosenIndex = e.detail.value
 			} else if (e.detail.column == 1) {
@@ -892,7 +883,6 @@ export default {
 				this.dateRangeChosen[0][this.firstDateChoosenIndex] + ' ' +
 				this.dateRangeChosen[1][this.secondDateChoosenIndex] + '-' +
 				this.dateRangeChosen[2][this.thirdDateChoosenIndex]
-			console.log('函数' + this.selectDate);
 		},
 
 		// 日期格式化函数
@@ -915,6 +905,25 @@ export default {
 			};
 
 			return obj;
+		},
+
+		// 判断两个日期大小
+		// date 格式 xxxx-xx-xx xx:xx:xx
+		compareDate(date1, date2) {
+			console.log('比较时间' + date1);
+			console.log('比较时间' + date2);
+			let dateArray_1 = date1.split(' ')
+			let dateArray_2 = date2.split(' ')
+			let date1_s = dateArray_1[0].replace(/\-/g, '/')   //利用正则将字符串格式转换统一标准格式 date1_s输出：xxxx/xx/xx
+			let date2_s = dateArray_2[0].replace(/\-/g, '/')
+			//將字符串格式日期转化为时间戳，就是1970年到当前日期的毫秒数
+			let date1_unix = Date.parse(date1_s)
+			let date2_unix = Date.parse(date2_s)
+			if (date1_unix < date2_unix) {
+				return date2;
+			} else {
+				return date1;
+			}
 		}
 	}
 }
