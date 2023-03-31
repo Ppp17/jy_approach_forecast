@@ -46,7 +46,7 @@
 			{
 				"path": "pages/identity_id_photo/identity_id_photo",
 				"style": {
-					"navigationBarTitleText": "",
+					"navigationBarTitleText": "实名认证",
 					"enablePullDownRefresh": false
 				}
 			},
@@ -59,7 +59,7 @@
 			}, {
 				"path": "pages/identity_code/identity_code",
 				"style": {
-					"navigationBarTitleText": "",
+					"navigationBarTitleText": "身份码",
 					"enablePullDownRefresh": false
 				}
 
