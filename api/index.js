@@ -141,13 +141,14 @@ export function ocrRealName(name) {
 }
 
 // 实名认证 实名信息保存
-export function saveRealName(userNo, credNo, name) {
+export function saveRealName(userNo, credNo, name,addr) {
   return request({
-    url: 'App/SaveRealName',
+    url: 'User/SaveRealName',
     data: {
       userNo,
       credNo,
-      name
+      name,
+      addr
     }
   })
 }

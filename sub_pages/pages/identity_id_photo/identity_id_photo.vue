@@ -37,6 +37,7 @@ export default {
 				userNo: '',
 				idName: '',
 				idNumber: '',
+				addr: '',
 				backFlag: false,
 				faceFlag: false,
 			},
@@ -97,6 +98,7 @@ export default {
 									if (type == 1) {
 										this.idInfo.idName = result.Data.name;
 										this.idInfo.idNumber = result.Data.credNo;
+										this.idInfo.addr = result.Data.addr;
 										this.idInfo.faceFlag = true;
 										console.log(this.idInfo);
 									} else if (type == 2) {
@@ -135,7 +137,7 @@ export default {
 		async onSubmit() {
 			console.log(this.idInfo);
 			if (this.idInfo.faceFlag && this.idInfo.backFlag) {
-				const { data: res } = await saveRealName(this.idInfo.userNo, this.idInfo.idNumber, this.idInfo.idName)
+				const { data: res } = await saveRealName(this.idInfo.userNo, this.idInfo.idNumber, this.idInfo.idName,this.idInfo.addr)
 				console.log(res);
 				if (res.Code == 0) {
 					uni.showModal({
