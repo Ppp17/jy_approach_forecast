@@ -36,6 +36,10 @@ export default {
 		credNo: {
 			type: String,
 			default: ''
+		},
+		name:{
+			type: String,
+			default: ''
 		}
 	},
 	data() {
@@ -46,7 +50,7 @@ export default {
 						uni.navigateTo({ url: '/sub_pages/pages/appo_type/appo_type' });
 						break;
 					case 2:
-						uni.navigateTo({ url: `/sub_pages/pages/identity_id_photo/identity_id_photo?userNo=${this.userNo}` });
+						uni.navigateTo({ url: `/sub_pages/pages/identity_id_photo/identity_id_photo?userNo=${this.userNo}&userName=${this.name}&credNo=${this.credNo}` });
 						break;
 					case 3:
 						uni.showModal({

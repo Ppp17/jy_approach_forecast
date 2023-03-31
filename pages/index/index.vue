@@ -4,7 +4,7 @@
 		<user_info :name="userInfo.userName" :phone="userInfo.phone"></user_info>
 		<view class="btn_out">
 			<!-- 功能区 -->
-			<f-option :userNo="userInfo.userNo" :credNo="userInfo.credNo"></f-option>
+			<f-option :userNo="userInfo.userNo" :credNo="userInfo.credNo" :name="userInfo.userName"></f-option>
 			<!-- 遮罩层 如果没有手机号则获取手机号 -->
 			<!-- 			<block v-if="!phone">
 				<button class="btn_in" plain open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"></button>

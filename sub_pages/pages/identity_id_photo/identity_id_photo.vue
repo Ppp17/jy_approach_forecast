@@ -17,7 +17,8 @@
 		<view class="input">
 			<uni-easyinput v-model="idInfo.idName" placeholder="姓名" disabled />
 		</view>
-		<button @click="onSubmit" style="width: 80vw;margin-top:2vh">提交</button>
+		<button v-if="firstUpLoad" @click="onSubmit" style="width: 80vw;margin-top:2vh">提交</button>
+		<button v-else @click="onSubmit" style="width: 80vw;margin-top:2vh">修改</button>
 	</view>
 </template>
 
@@ -26,6 +27,8 @@ import { upLoadPic, saveRealName } from 'api/index.js';
 export default {
 	data() {
 		return {
+			// 是否第一次上传
+			firstUpLoad: true,
 			// 人面
 			tempFilePathFace: '',
 			// 国徽
@@ -41,7 +44,12 @@ export default {
 	},
 	onLoad(options) {
 		this.idInfo.userNo = options.userNo;
-		console.log(this.idInfo.userNo);
+		if (options.userName) {
+			this.idInfo.idName = options.userName;
+			this.idInfo.idNumber = options.credNo;
+			this.firstUpLoad = false
+		}
+		console.log(options);
 	},
 	methods: {
 		async upLoadImg(type) {
@@ -136,12 +144,12 @@ export default {
 						showCancel: true,
 						success: ({ confirm, cancel }) => { }
 					})
-				}else {
+				} else {
 					uni.showModal({
 						title: 'Fail',
 						content: res.Message,
 						showCancel: true,
-						success: ({ confirm, cancel }) => {}
+						success: ({ confirm, cancel }) => { }
 					})
 				}
 
