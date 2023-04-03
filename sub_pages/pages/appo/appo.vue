@@ -109,7 +109,7 @@
 					<view v-for="(item, index) in brandNameArray" :key="index">
 						<view class="tag_item">
 							<view class="item_info">{{ item.brandName }}</view>
-							<view class="item_info" v-if="item.goodsNum">{{ item.goodsNum }}个</view>
+							<view class="item_info" v-if="item.goodsNum">{{ item.goodsNum }}件</view>
 							<view class="item_info" v-if="item.goodsWeight">{{ item.goodsWeight }}kg</view>
 							<image src="/static/del_xx.png" mode="scaleToFill" class="img" @click="delBrandTag(item)" />
 						</view>
@@ -530,34 +530,28 @@ export default {
 				this.brandNameArray = []
 				for (let i = 0; i < LastestData.variety.length; i++) {
 					let item = LastestData.variety[i].split(' ')
-					console.log(item);
 					if (item[0]) {
 						let obj = {
 							brandName: item[0],
 						};
-						// 判断item[1] item[2] 是否有 个, kg
+						// 判断item[1] item[2] 是否有 件, kg
 						if (item[1]) {
-							if (item[1].indexOf('件')>0) {
+							if (item[1].indexOf('件') > 0) {
 								let num = item[1].slice(0, item[1].length - 1)
-								console.log(num);
 								obj['goodsNum'] = num
 							}
-							if (item[1].indexOf('kg')>0) {
+							if (item[1].indexOf('kg') > 0) {
 								let weight = item[1].slice(0, item[1].length - 2)
-								console.log(weight);
 								obj['goodsWeight'] = weight
 							}
 						}
 						if (item[2]) {
-							console.log(item[2].indexOf('件'));
-							if (item[2].indexOf('件')>0) {
+							if (item[2].indexOf('件') > 0) {
 								let num = item[2].slice(0, item[2].length - 1)
-								console.log(num);
 								obj['goodsNum'] = num
 							}
-							if (item[2].indexOf('kg')>0) {
+							if (item[2].indexOf('kg') > 0) {
 								let weight = item[2].slice(0, item[2].length - 2)
-								console.log(weight);
 								obj['goodsWeight'] = weight
 							}
 						}
