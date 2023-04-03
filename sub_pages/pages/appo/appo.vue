@@ -380,7 +380,7 @@ export default {
 				this.dateRangeChosen[0][this.firstDateChoosenIndex] + ' ' +
 				this.dateRangeChosen[1][this.secondDateChoosenIndex] + '-' +
 				this.dateRangeChosen[2][this.thirdDateChoosenIndex]
-				console.log('侦听器1' + this.selectDate);
+			console.log('侦听器1' + this.selectDate);
 		},
 
 		// 第二个下标改变后，删除 第三个数组中 0 - 第二个下标的内容
@@ -530,34 +530,41 @@ export default {
 				this.brandNameArray = []
 				for (let i = 0; i < LastestData.variety.length; i++) {
 					let item = LastestData.variety[i].split(' ')
+					console.log(item);
 					if (item[0]) {
 						let obj = {
 							brandName: item[0],
 						};
 						// 判断item[1] item[2] 是否有 个, kg
 						if (item[1]) {
-							if (item[1].indexOf('个')) {
+							if (item[1].indexOf('件')>0) {
 								let num = item[1].slice(0, item[1].length - 1)
+								console.log(num);
 								obj['goodsNum'] = num
 							}
-							if (item[1].indexOf('kg')) {
+							if (item[1].indexOf('kg')>0) {
 								let weight = item[1].slice(0, item[1].length - 2)
+								console.log(weight);
 								obj['goodsWeight'] = weight
 							}
 						}
 						if (item[2]) {
-							if (item[2].indexOf('个')) {
+							console.log(item[2].indexOf('件'));
+							if (item[2].indexOf('件')>0) {
 								let num = item[2].slice(0, item[2].length - 1)
+								console.log(num);
 								obj['goodsNum'] = num
 							}
-							if (item[2].indexOf('kg')) {
+							if (item[2].indexOf('kg')>0) {
 								let weight = item[2].slice(0, item[2].length - 2)
+								console.log(weight);
 								obj['goodsWeight'] = weight
 							}
 						}
 						this.brandNameArray.push(obj);
 					}
 				}
+				console.log(this.brandNameArray);
 				// 随行人员 (根据字符串长度判断属性)
 				this.entourageData = []
 				for (let i = 0; i < LastestData.crews.length; i++) {
@@ -682,6 +689,7 @@ export default {
 				for (let i = 0; i < this.brandNameArray.length; i++) {
 					let brandInfoString = this.brandNameArray[i].brandName
 					if (this.brandNameArray[i].goodsNum) {
+						console.log(this.brandNameArray[i].goodsNum);
 						brandInfoString = brandInfoString + ' ' + this.brandNameArray[i].goodsNum + '件'
 						sumNum = sumNum + parseFloat(this.brandNameArray[i].goodsNum);
 					}
@@ -691,7 +699,7 @@ export default {
 					}
 					brandNameStringArray.push(brandInfoString)
 				}
-
+				console.log(brandNameStringArray);
 				// 随行人员info
 				let entourageInfoStringArray = [];
 				// 随行人员信息转字符串数组
