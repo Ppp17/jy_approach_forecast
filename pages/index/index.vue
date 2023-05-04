@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<!-- 个人信息 -->
-		<user_info :name="userInfo.userName" :phone="userInfo.phone"></user_info>
+		<user_info :name="userInfo.userName" :userNo="userNoNum"></user_info>
 		<view class="btn_out">
 			<!-- 功能区 -->
 			<f-option :userNo="userInfo.userNo" :credNo="userInfo.credNo" :name="userInfo.userName"></f-option>
@@ -30,7 +30,9 @@ export default {
 				userNo: "PS00000002"
 				ssh 上传，随便改点
 			*/
-			userInfo: {}
+			userInfo: {},
+			// 省略userInfo.userNo后半段的0
+			userNoNum: ''
 		}
 	},
 	created() {
@@ -98,8 +100,7 @@ export default {
 			// console.log(res);
 			this.userInfo = res.Data
 			// this.name = res.Data.userNo
-			console.log(this.userInfo);
-
+			this.userNoNum = parseInt(this.userInfo.userNo.split('PS')[1]);
 		},
 
 		// 老版本获取手机号 方法

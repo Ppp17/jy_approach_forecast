@@ -161,7 +161,7 @@ export default {
 								}
 								uni.showModal({
 									title: 'Fail',
-									content: '网络异常',
+									content: '网络异常:'+statusCode,
 									showCancel: true,
 									success: ({ confirm, cancel }) => { }
 								})
@@ -197,7 +197,7 @@ export default {
 						})
 					} else {
 						uni.showModal({
-							title: 'Fail',
+							title: 'Fail:'+res.Code,
 							content: res.Message,
 							showCancel: true,
 							success: ({ confirm, cancel }) => { }

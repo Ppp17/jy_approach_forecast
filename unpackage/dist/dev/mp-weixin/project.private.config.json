@@ -56,6 +56,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "sub_pages/pages/identity_id_photo/identity_id_photo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

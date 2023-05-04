@@ -21,7 +21,7 @@
 .info .pic .name.data-v-791823ec {
   margin-left: 1vw;
 }
-.info .phone.data-v-791823ec {
-  font-size: 24px;
+.info .userNo.data-v-791823ec {
+  font-size: 18px;
 }
 

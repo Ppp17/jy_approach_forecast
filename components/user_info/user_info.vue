@@ -5,8 +5,8 @@
 				<!-- <view class="head_pic"></view> -->
 				<view class="name">用户:{{ name==''?'未实名用户':name }}</view>
 			</view>
-			<view class="phone">
-				<text style="font-size: 12px;">手机号:</text> {{ phone=='' ? 'xxxxxxxx': phone }}
+			<view class="userNo">
+				<text style="font-size: 12px;">身份号:</text> {{ userNo=='' ? 'xxxxxxxx': userNo }}
 			</view>
 		</view>
 	</uni-card>
@@ -20,7 +20,7 @@ export default {
 			type: String,
 			default: '未注册用户'
 		},
-		phone:{
+		userNo:{
 			type: String,
 			default: 'xxxxxxxxx'
 		}
@@ -59,8 +59,8 @@ export default {
 		}
 	}
 
-	.phone {
-		font-size: 24px;
+	.userNo {
+		font-size: 18px;
 	}
 }
 </style>

@@ -1,8 +1,27 @@
 @charset "UTF-8";
 /* 水平间距 */
 /* 水平间距 */
-.plateNum.data-v-a1ad43f8 {
+.container.data-v-a1ad43f8 {
+  padding: 0 20px;
+}
+.container .plateNum.data-v-a1ad43f8 {
   flex: 7;
   margin: 5px;
+}
+.container .code.data-v-a1ad43f8 {
+  display: flex;
+}
+.container .btn.data-v-a1ad43f8 {
+  flex: 2;
+  height: 35px;
+  padding: 0 2px;
+  font-size: 14px;
+  margin: 2px;
+  background-color: #79c667;
+  color: white;
+}
+.container .btn_press_1.data-v-a1ad43f8 {
+  background-color: #90bd86;
+  color: gray;
 }
 
