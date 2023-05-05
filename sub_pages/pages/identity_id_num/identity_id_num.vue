@@ -75,7 +75,9 @@ export default {
 			//
 			isDisabled: false,
 			infoRules: {
-				/* idNumber: {
+				/* 
+					身份证
+				idNumber: {
 					rules: [{
 						required: true,
 						errorMessage: '请输入身份证号'
@@ -112,7 +114,9 @@ export default {
 						errorMessage: '手机号格式错误'
 					},]
 				},
-/* 				code: {
+				/* 				
+				验证码
+				code: {
 					rules: [
 						{
 							required: true,
@@ -200,7 +204,7 @@ export default {
 				}
 			})
 		},
-
+		// 隐私协议勾选
 		changeAgreement(e) {
 			console.log(e);
 			console.log(e.detail.data.length);
