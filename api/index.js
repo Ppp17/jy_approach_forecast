@@ -141,7 +141,7 @@ export function ocrRealName(name) {
 }
 
 // 实名认证 实名信息保存
-export function saveRealName(userNo, credNo, name,addr) {
+export function saveRealName(userNo, credNo, name, addr) {
   return request({
     url: 'User/SaveRealName',
     data: {
@@ -153,6 +153,29 @@ export function saveRealName(userNo, credNo, name,addr) {
   })
 }
 
+// 获取验证码
+export function codeMessage(phone) {
+  return request({
+    url: 'Local/SpecialOffer/SendSms',
+    data: {
+      phone
+    }
+  })
+}
+
+// 活动登记
+export function eventRegister(phone, name, cred_no, openid, code) {
+  return request({
+    url: 'Local/SpecialOffer/SignUp',
+    data: {
+      phone, 
+      name, 
+      cred_no, 
+      openid, 
+      code,
+    }
+  })
+}
 
 /* 暂时弃用
 

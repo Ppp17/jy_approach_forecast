@@ -39,7 +39,7 @@
 			{
 				"path": "pages/identity_id_num/identity_id_num",
 				"style": {
-					"navigationBarTitleText": "",
+					"navigationBarTitleText": "优惠领取",
 					"enablePullDownRefresh": false
 				}
 			},

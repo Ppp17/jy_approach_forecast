@@ -21,6 +21,12 @@
 			<image src="/static/qrcode.png" mode="scaleToFill" class="img" />
 			<text>亮身份码</text>
 		</view>
+		<view class="btn btn_5" hover-class="btn_press_5" @click="optionBtn(5)">
+			<image src="/static/coupon.png" mode="scaleToFill" class="img" />
+			<text>优惠获取</text>
+		</view>
+		<view class="btn" style="background-color: transparent;">
+		</view>
 	</view>
 	<!-- </uni-card> -->
 </template>
@@ -76,6 +82,9 @@ export default {
 								success: ({ confirm, cancel }) => {}
 							})
 						}
+						break;
+					case 5:
+						uni.navigateTo({ url: `/sub_pages/pages/identity_id_num/identity_id_num`});
 						break;
 				}
 			}
@@ -153,6 +162,14 @@ export default {
 
 	.btn_press_4 {
 		background-color: #77a3c0;
+	}
+
+	.btn_5 {
+		background-color: #e7704c;
+	}
+
+	.btn_press_5 {
+		background-color: #eb947a;
 	}
 }
 </style>

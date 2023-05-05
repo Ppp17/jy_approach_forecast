@@ -10,11 +10,11 @@
 				</view>
 			</uni-forms-item>
 			<!-- 身份证号 -->
-			<uni-forms-item required label="身份证号" name="idNumber" :labelWidth="75">
+<!-- 			<uni-forms-item required label="身份证号" name="idNumber" :labelWidth="75">
 				<view class="plateNum">
 					<uni-easyinput v-model="idInfo.idNumber" placeholder="请输入身份证号" maxlength="18" />
 				</view>
-			</uni-forms-item>
+			</uni-forms-item> -->
 			<!-- 手机号 -->
 			<uni-forms-item required label="手机号" name="phone" :labelWidth="75">
 				<view class="plateNum">
@@ -22,30 +22,49 @@
 				</view>
 			</uni-forms-item>
 			<!-- 验证码 -->
-			<uni-forms-item required label="验证码" name="code" :labelWidth="75">
+<!-- 			<uni-forms-item required label="验证码" name="code" :labelWidth="75">
 				<view class="plateNum code">
-					<view style="flex: 5">
+					<view style="flex: 6">
 						<uni-easyinput v-model="idInfo.code" placeholder="输入验证码" maxlength="11" />
 					</view>
 					<button class="btn" hover-class="btn_press_1" @click="getCode" :disabled="isDisabled">
 						{{ codeBtn }}
 					</button>
 				</view>
-			</uni-forms-item>
+			</uni-forms-item> -->
+
+			<!-- 用户隐私协议 -->
+<!-- 			<view class="input" style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+				<uni-data-checkbox multiple v-model="userAgreement" :localdata="agreement"
+					@change="changeAgreement"></uni-data-checkbox>
+				<view @click="showPrivary" style="color:#e749b8">查看协议内容</view>
+			</view> -->
+
 			<button @click="onSubmit">提交</button>
 		</uni-forms>
 	</view>
 </template>
 
 <script>
-import { getUserOpenid } from 'api/index.js'
+import { getUserOpenid, codeMessage, eventRegister } from 'api/index.js'
 
 export default {
 	data() {
 		return {
+			// 用户隐私协议
+			userAgreement: [0],
+			// 协议
+			agreement: [{
+				text: '我已同意并接受《用户服务协议》及《隐私政策》',
+				value: 0
+			}],
+			// 协议数组长度
+			arrlength: 1,
+
 			openid: uni.getStorageSync('openid') || '',
 			idInfo: {
 				idName: '',
+				// 身份证号
 				idNumber: '',
 				phone: '',
 				// 验证码
@@ -56,7 +75,7 @@ export default {
 			//
 			isDisabled: false,
 			infoRules: {
-				idNumber: {
+				/* idNumber: {
 					rules: [{
 						required: true,
 						errorMessage: '请输入身份证号'
@@ -71,7 +90,7 @@ export default {
 						errorMessage: '身份证格式错误'
 					}
 					]
-				},
+				}, */
 				idName: {
 					rules: [{
 						required: true,
@@ -86,21 +105,21 @@ export default {
 					{
 						minLength: 11,
 						maxLength: 11,
-						errorMessage: '身份证号长度位{maxLength}个字符',
+						errorMessage: '手机号长度位{maxLength}个字符',
 					},
 					{
 						pattern: `^1[34578]\\d{9}$`,
 						errorMessage: '手机号格式错误'
 					},]
 				},
-				code: {
+/* 				code: {
 					rules: [
 						{
 							required: true,
 							errorMessage: '输入验证码',
 						}
 					]
-				}
+				} */
 			},
 		};
 	},
@@ -150,20 +169,89 @@ export default {
 					uni.hideLoading();
 				}
 			})
-
 		},
-		onSubmit() {
+
+		// 隐私协议
+		showPrivary() {
+			uni.showLoading({
+				title: '加载中',
+				mask: true
+			})
+			uni.downloadFile({
+				url: 'https://pass.jysc.sh.cn/AppFiles/005newPrivacy.pdf',
+				success: ({ tempFilePath, statusCode }) => {
+					// console.log(tempFilePath);
+					uni.openDocument({
+						filePath: tempFilePath,
+						success: (result) => {
+							uni.hideLoading();
+						},
+						fail: (error) => {
+							uni.hideLoading();
+						}
+					})
+				},
+				fail: (error) => {
+					uni.hideLoading();
+					uni.showModal({
+						title: 'fail',
+						content: error,
+					})
+				}
+			})
+		},
+
+		changeAgreement(e) {
+			console.log(e);
+			console.log(e.detail.data.length);
+			this.arrlength = e.detail.data.length
+		},
+
+		async onSubmit() {
+			if(this.arrlength == 0){
+				uni.showModal({
+					title: '请先勾选协议',
+					content: '',
+				})
+				return false ;
+			}
+
 			this.$refs.idInfoForm.validate().then(async res => {
 				console.log('表单数据信息：', res);
 				// res.idName res.idNumber
-
+				const data = await eventRegister(
+					this.idInfo.phone,
+					this.idInfo.idName,
+					'',
+					this.openid,
+					'',
+				)
+				console.log(data);
+				if (data.statusCode === 200) {
+					uni.showModal({
+						title: data.data.message,
+						content: '',
+						showCancel: true,
+						success: ({ confirm, cancel }) => { }
+					})
+					this.idInfo.phone = '';
+					this.idInfo.idName = '';
+					this.idInfo.idNumber = '';
+					this.idInfo.code = '';
+				} else {
+					uni.showModal({
+						title: '网络异常' + data.statusCode,
+						content: '',
+						showCancel: true,
+					})
+				}
 			}).catch(err => {
 				console.log('表单错误信息：', err);
 			})
 			// console.log(this.idInfo);
 		},
 		// 获取验证码
-		getCode() {
+		async getCode() {
 			uni.hideKeyboard();
 			if (!(/^1[34578]\d{9}$/.test(this.idInfo.phone))) {
 				uni.showToast({
@@ -173,12 +261,9 @@ export default {
 				})
 				return false
 			}
-			uni.showToast({
-				title: '验证码已发送',
-				icon: 'success',
-				duration: 2000
-			})
-			let getTime = 10;
+
+			// 验证码倒计时事件
+			let getTime = 60;
 			this.isDisabled = true;
 
 			var timer = setInterval(() => {
@@ -193,7 +278,14 @@ export default {
 				console.log('正在计时');
 			}, 1000);
 			// todo 验证码接口
-
+			const { data: res } = await codeMessage(this.idInfo.phone)
+			console.log(res);
+			// const res = '验证码已发送';
+			uni.showToast({
+				title: res.message,
+				icon: 'none',
+				duration: 2000
+			})
 		}
 	}
 }
@@ -213,7 +305,7 @@ export default {
 	}
 
 	.btn {
-		flex: 2;
+		flex: 3;
 		height: 35px;
 		padding: 0 2px;
 		font-size: 14px;

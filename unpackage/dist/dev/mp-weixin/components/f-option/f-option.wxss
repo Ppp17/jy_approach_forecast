@@ -52,4 +52,10 @@
 .option .btn_press_4.data-v-247504f8 {
   background-color: #77a3c0;
 }
+.option .btn_5.data-v-247504f8 {
+  background-color: #e7704c;
+}
+.option .btn_press_5.data-v-247504f8 {
+  background-color: #eb947a;
+}
 
