@@ -10,7 +10,7 @@
 				</view>
 			</uni-forms-item>
 			<!-- 身份证号 -->
-<!-- 			<uni-forms-item required label="身份证号" name="idNumber" :labelWidth="75">
+			<!-- 			<uni-forms-item required label="身份证号" name="idNumber" :labelWidth="75">
 				<view class="plateNum">
 					<uni-easyinput v-model="idInfo.idNumber" placeholder="请输入身份证号" maxlength="18" />
 				</view>
@@ -22,7 +22,7 @@
 				</view>
 			</uni-forms-item>
 			<!-- 验证码 -->
-<!-- 			<uni-forms-item required label="验证码" name="code" :labelWidth="75">
+			<uni-forms-item required label="验证码" name="code" :labelWidth="75">
 				<view class="plateNum code">
 					<view style="flex: 6">
 						<uni-easyinput v-model="idInfo.code" placeholder="输入验证码" maxlength="11" />
@@ -31,10 +31,10 @@
 						{{ codeBtn }}
 					</button>
 				</view>
-			</uni-forms-item> -->
+			</uni-forms-item>
 
 			<!-- 用户隐私协议 -->
-<!-- 			<view class="input" style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+			<!-- 			<view class="input" style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
 				<uni-data-checkbox multiple v-model="userAgreement" :localdata="agreement"
 					@change="changeAgreement"></uni-data-checkbox>
 				<view @click="showPrivary" style="color:#e749b8">查看协议内容</view>
@@ -107,23 +107,29 @@ export default {
 					{
 						minLength: 11,
 						maxLength: 11,
-						errorMessage: '手机号长度位{maxLength}个字符',
+						errorMessage: '手机号长度为{maxLength}个字符',
 					},
 					{
-						pattern: `^1[34578]\\d{9}$`,
+						// pattern: `^1[34578]\\d{9}$`,
+						pattern: `^0?(13|14|15|17|18|19)[0-9]{9}$`,
 						errorMessage: '手机号格式错误'
 					},]
 				},
-				/* 				
-				验证码
+
+				// 验证码
 				code: {
 					rules: [
 						{
 							required: true,
 							errorMessage: '输入验证码',
-						}
+						},
+						{
+							minLength: 6,
+							maxLength: 6,
+							errorMessage: '验证码长度为{maxLength}个字符',
+						},
 					]
-				} */
+				}
 			},
 		};
 	},
@@ -212,12 +218,12 @@ export default {
 		},
 
 		async onSubmit() {
-			if(this.arrlength == 0){
+			if (this.arrlength == 0) {
 				uni.showModal({
 					title: '请先勾选协议',
 					content: '',
 				})
-				return false ;
+				return false;
 			}
 
 			this.$refs.idInfoForm.validate().then(async res => {
@@ -228,7 +234,7 @@ export default {
 					this.idInfo.idName,
 					'',
 					this.openid,
-					'',
+					this.idInfo.code,
 				)
 				console.log(data);
 				if (data.statusCode === 200) {
@@ -257,7 +263,7 @@ export default {
 		// 获取验证码
 		async getCode() {
 			uni.hideKeyboard();
-			if (!(/^1[34578]\d{9}$/.test(this.idInfo.phone))) {
+			if (!(/^0?(13|14|15|17|18|19)[0-9]{9}$/.test(this.idInfo.phone))) {
 				uni.showToast({
 					title: '手机号格式错误',
 					icon: 'error',
@@ -283,7 +289,7 @@ export default {
 			}, 1000);
 			// todo 验证码接口
 			const { data: res } = await codeMessage(this.idInfo.phone)
-			console.log(res);
+			// console.log(res);
 			// const res = '验证码已发送';
 			uni.showToast({
 				title: res.message,

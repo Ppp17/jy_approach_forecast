@@ -130,7 +130,6 @@ export default {
 	// padding: 10px;
 	font-size: 14px;
 	line-height: 24px;
-
 	.btn_out {
 		position: relative;
 
@@ -145,7 +144,5 @@ export default {
 			border: 0;
 		}
 	}
-
-
 }
 </style>

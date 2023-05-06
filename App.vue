@@ -21,6 +21,7 @@
 	// 设置整个项目的背景色
 	page {
 		background-color: #f5f5f5;
+		// background: linear-gradient(rgb(255, 255, 255),rgb(255, 243, 210));
 		width: 100%;
 		height: 100%;
 	}
