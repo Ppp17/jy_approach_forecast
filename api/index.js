@@ -177,6 +177,41 @@ export function eventRegister(phone, name, cred_no, openid, code) {
   })
 }
 
+// 优惠券信息获取
+export function qrCode(openid) {
+  return request({
+    url: 'Local/SpecialOffer/GetQRCode',
+    data:{
+      openid
+    }
+  })
+}
+
+// 获取时间
+/* 
+  使用方法: get_date(Date.parse(new Date()),'-')
+*/
+export function get_date(pTimestamp, pMark) {
+  const date = new Date(pTimestamp);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  const hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+  const minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  const second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+
+  const lDate = year + pMark + month + pMark + day;
+  const lTime = hour + ":" + minute + ":" + second;
+  const obj = {
+    "date": lDate,
+    "time": lTime,
+    "datetime": lDate + " " + lTime,
+  };
+
+  return obj;
+}
+
 /* 暂时弃用
 
 // 获取手机号信息

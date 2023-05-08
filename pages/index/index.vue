@@ -15,8 +15,9 @@
 	</view>
 </template>
 
+<!-- 本小程序的扫码跳转链接: https://pass.jysc.sh.cn/files/ -->
 <script>
-import { getUserOpenid, getUserInfoByOpenid } from 'api/index.js'
+import { getUserOpenid, getUserInfoByOpenid ,getCustomerInfo} from 'api/index.js'
 export default {
 	data() {
 		return {
@@ -42,12 +43,13 @@ export default {
 		} else {
 			this.userOpenidGetInfo(this.openid);
 		}
-
 	},
 	onReady() {
 
 	},
 	methods: {
+		//getCus
+
 		navi() {
 			uni.navigateTo({
 				url: '/sub_pages/pages/pkg_index/pkg_index'

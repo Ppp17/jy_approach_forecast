@@ -24,4 +24,38 @@
   background-color: #90bd86;
   color: gray;
 }
+.title.data-v-a1ad43f8 {
+  display: flex;
+  justify-content: center;
+  font-size: 8vw;
+}
+.canvas-code.data-v-a1ad43f8 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* z-index: 2; */
+  /* background-color: pink; */
+  height: 0;
+  padding: 50% 0;
+  /* border: 1px solid #0077ec; */
+}
+.canvas-code .canvas-inside.data-v-a1ad43f8 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  width: 80%;
+  height: 80%;
+  background-color: #fff;
+  /* 简洁的四角边框实现 */
+  border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 70%, #f15c48);
+  border-image-slice: 3;
+  border-width: 10px;
+  border-style: solid;
+  border-image-outset: 0cm;
+  /*  */
+  box-shadow: 7.5px 7.5px 16.9px -4px rgba(0, 0, 0, 0.06), 60px 60px 135px -4px rgba(0, 0, 0, 0.12);
+}
 

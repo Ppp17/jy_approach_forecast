@@ -18,6 +18,7 @@
   background-color: #41b6ec;
   color: white;
   border-radius: 10px;
+  box-shadow: 4.7px 4.9px 4.9px rgba(0, 0, 0, 0.02), 15.6px 16.5px 16.5px rgba(0, 0, 0, 0.03), 70px 74px 74px rgba(0, 0, 0, 0.05);
 }
 .option .btn .img.data-v-247504f8 {
   width: 40px;

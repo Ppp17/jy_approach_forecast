@@ -25,7 +25,7 @@
 			<image src="/static/coupon.png" mode="scaleToFill" class="img" />
 			<text>优惠获取</text>
 		</view>
-		<view class="btn" style="background-color: transparent;">
+		<view class="btn" style="background-color: transparent;box-shadow: none;">
 		</view>
 	</view>
 	<!-- </uni-card> -->
@@ -43,7 +43,7 @@ export default {
 			type: String,
 			default: ''
 		},
-		name:{
+		name: {
 			type: String,
 			default: ''
 		}
@@ -79,12 +79,18 @@ export default {
 								title: '请先注册申请',
 								content: '',
 								showCancel: true,
-								success: ({ confirm, cancel }) => {}
+								success: ({ confirm, cancel }) => { }
 							})
 						}
 						break;
 					case 5:
-						uni.navigateTo({ url: `/sub_pages/pages/identity_id_num/identity_id_num`});
+						uni.showModal({
+							title: '优惠活动已结束',
+							content: '',
+							showCancel: true,
+							success: ({ confirm, cancel }) => { }
+						})
+						// uni.navigateTo({ url: `/sub_pages/pages/identity_id_num/identity_id_num` });
 						break;
 				}
 			}
@@ -118,6 +124,10 @@ export default {
 		background-color: rgb(65, 182, 236);
 		color: white;
 		border-radius: 10px;
+		box-shadow:
+			4.7px 4.9px 4.9px rgba(0, 0, 0, 0.02),
+			15.6px 16.5px 16.5px rgba(0, 0, 0, 0.03),
+			70px 74px 74px rgba(0, 0, 0, 0.05);
 
 		.img {
 			// vertical-align:middle​;

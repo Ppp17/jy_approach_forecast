@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<view v-if="pageStatus === 0" class="container">
 		<uni-section title="优惠券领取" type="line">
 		</uni-section>
 		<uni-forms ref="idInfoForm" :rules="infoRules" :modelValue="idInfo">
@@ -43,14 +43,45 @@
 			<button @click="onSubmit">提交</button>
 		</uni-forms>
 	</view>
+	<!-- 
+		实时时间
+		二维码
+		手机号后四位(未使用优惠券) || 已领取优惠券(已使用优惠券)
+	 -->
+	<view v-else style="margin-top: 5vh;">
+		<!-- 时间 -->
+		<view class="title">{{ timeNow }}</view>
+		<!-- 二维码 -->
+		<view class="canvas-code">
+			<view class="canvas-inside">
+				<canvas canvas-id="qrcode" :style="'width:' + QRwidth + 'px;height:' + QRwidth + 'px'" />
+			</view>
+		</view>
+		<view class="title" v-if="content == '已领取优惠券'"><text style="color: red;">{{ content }}</text></view>
+		<view class="title" v-else>手机尾号:<text style="color: red;">{{ content }}</text></view>
+	</view>
 </template>
 
 <script>
-import { getUserOpenid, codeMessage, eventRegister } from 'api/index.js'
-
+import { getUserOpenid, codeMessage, eventRegister, qrCode, get_date } from 'api/index.js';
+import uQRCode from 'untils/weapp-qrcode.js'
 export default {
 	data() {
 		return {
+			// 描述相关
+			content: '',
+			/* 
+				二维码相关
+			*/
+			codeUrl: '',
+			QRwidth: uni.getSystemInfoSync().windowWidth * 0.6,
+			QRheight: uni.getSystemInfoSync().windowWidth * 0.6,
+			// 页面实时时间
+			timeNow: get_date(Date.parse(new Date()), '-').datetime,
+			// 定时器
+			timer: '',
+			// 页面状态
+			pageStatus: Number,
 			// 用户隐私协议
 			userAgreement: [0],
 			// 协议
@@ -138,6 +169,15 @@ export default {
 			// 获取openid
 			this.getOpenid()
 		}
+		this.getCouponDate();
+		// 定时器
+		this.timefunc()
+		
+		this.qrFun()
+	},
+	destroyed(){
+		clearInterval(this.timer);
+		console.log('销毁计时器');
 	},
 	methods: {
 		// 获取openid
@@ -181,6 +221,50 @@ export default {
 			})
 		},
 
+		//**生成二维码**//
+		qrFun: function () {
+			uQRCode.make({
+				canvasId: 'qrcode',
+				componentInstance: this,
+				text: this.codeUrl,
+				size: this.QRwidth,
+				margin: 0,
+				backgroundColor: '#ffffff',
+				foregroundColor: '#000000',
+				fileType: 'jpg',
+				errorCorrectLevel: uQRCode.errorCorrectLevel.H,
+				success: res => { }
+			})
+		},
+
+		// 使用优惠券时间
+		async getCouponDate() {
+			const { data: res } = await qrCode(this.openid);
+			console.log(res);
+			// 未使用, 使用优惠券时间为空
+			if (res.data.get_date === "") {
+				this.pageStatus = 1;
+				this.codeUrl = res.data.phone.slice(-4)
+				this.content = res.data.phone.slice(-4)
+			}
+			// 已使用, 返回使用优惠券的时间
+			else if (res.data.get_date) {
+				this.pageStatus = 2
+				this.codeUrl = res.data.phone.slice(-4)
+				this.content = '已领取优惠券'
+			} else {
+				this.pageStatus = 0;
+			}
+			//  console.log(get_date(Date.parse(new Date()),'-'));
+			console.log(this.pageStatus);
+		},
+		// 创建定时器
+		timefunc() {
+			this.timer = setInterval(() => this.timeNow = get_date(Date.parse(new Date()), '-').datetime, 1000)
+		},
+		/* 		stopTime(){
+					clearInterval(this.timer);
+				}, */
 		// 隐私协议
 		showPrivary() {
 			uni.showLoading({
@@ -328,6 +412,44 @@ export default {
 		background-color: #90bd86;
 		color: gray;
 	}
+}
+.title{
+	display: flex;
+	justify-content: center;
+	font-size: 8vw;
+}
+.canvas-code {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* z-index: 2; */
+	/* background-color: pink; */
 
+	height: 0;
+	padding: 50% 0;
+
+	/* border: 1px solid #0077ec; */
+	.canvas-inside {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 10;
+		width: 80%;
+		height: 80%;
+		background-color: #fff;
+		/* 简洁的四角边框实现 */
+		border-image-source: radial-gradient(65% 65%, transparent 0px, transparent 70%, #f15c48);
+		border-image-slice: 3;
+		border-width: 10px;
+		border-style: solid;
+		border-image-outset: 0cm;
+		/*  */
+		// border-radius: 10px;
+		box-shadow:
+			7.5px 7.5px 16.9px -4px rgba(0, 0, 0, 0.06),
+			60px 60px 135px -4px rgba(0, 0, 0, 0.12);
+	}
 }
 </style>
