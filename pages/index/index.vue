@@ -17,7 +17,7 @@
 
 <!-- 本小程序的扫码跳转链接: https://pass.jysc.sh.cn/files/ -->
 <script>
-import { getUserOpenid, getUserInfoByOpenid ,getCustomerInfo} from 'api/index.js'
+import { getUserOpenid, getUserInfoByOpenid, getCustomerInfo } from 'api/index.js'
 export default {
 	data() {
 		return {
@@ -67,18 +67,18 @@ export default {
 				success: async loginResult => {
 					const res = await getUserOpenid(loginResult.code);
 					console.log(res);
-					if(res.data.Code==0){
+					if (res.data.Code == 0) {
 						this.openid = res.data.Data.openid
-					uni.setStorage({
-						key: 'openid',
-						data: res.data.Data.openid,
-						success: (result) => {
-							console.log(result);
-						},
-						fail: (error) => {}
-					})
-					this.userOpenidGetInfo(this.openid);
-					}else {
+						uni.setStorage({
+							key: 'openid',
+							data: res.data.Data.openid,
+							success: (result) => {
+								console.log(result);
+							},
+							fail: (error) => { }
+						})
+						this.userOpenidGetInfo(this.openid);
+					} else {
 						uni.showModal({
 							title: 'Fail',
 							content: res.data.Message,
@@ -88,7 +88,7 @@ export default {
 							}
 						})
 					}
-					
+
 					uni.hideLoading();
 				},
 				fail: (error) => {
@@ -104,6 +104,8 @@ export default {
 			// this.name = res.Data.userNo
 			this.userNoNum = parseInt(this.userInfo.userNo.split('PS')[1]);
 		},
+
+
 
 		// 老版本获取手机号 方法
 		/* 		async getPhoneNumber(e) {
@@ -132,6 +134,7 @@ export default {
 	// padding: 10px;
 	font-size: 14px;
 	line-height: 24px;
+
 	.btn_out {
 		position: relative;
 
