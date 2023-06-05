@@ -84,13 +84,13 @@ export default {
 						}
 						break;
 					case 5:
-						uni.showModal({
+						/* uni.showModal({
 							title: '优惠活动已结束',
 							content: '',
 							showCancel: true,
 							success: ({ confirm, cancel }) => { }
-						})
-						// uni.navigateTo({ url: `/sub_pages/pages/identity_id_num/identity_id_num` });
+						}) */
+						uni.navigateTo({ url: `/sub_pages/pages/identity_id_num/identity_id_num` });
 						break;
 				}
 			}
