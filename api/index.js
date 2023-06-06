@@ -186,7 +186,7 @@ export function qrCode(openid) {
     }
   })
 }
-
+//test
 // 获取时间
 /* 
   使用方法: get_date(Date.parse(new Date()),'-')
